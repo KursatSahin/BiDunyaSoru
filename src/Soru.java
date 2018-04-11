@@ -7,4 +7,11 @@ public abstract class Soru implements PuanHesaplayıcı {
     String secenekD;
 
     int dogruCevap;
+
+    int priority;
+
+    @Override
+    public int puanHesapla() {
+        return 5 * priority;
+    }
 }

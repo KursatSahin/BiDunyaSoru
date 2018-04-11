@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 public class OyunYonetimSistemi {
-    ArrayList<Ulke> ulkeler;
+    ArrayList<Ulke> ulkeler; // Map kullanılabilir, Key ile ülke adları , Value ile soru listeleri tutulur
     ArrayList<Oyuncu> oyuncular;
     Queue<Soru> sorular;
     Oyuncu oyuncu;
