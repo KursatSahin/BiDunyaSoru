@@ -7,5 +7,4 @@ public class Oyuncu {
     private int bakiye;
     private int toplamPuan;
     public ArrayList<Ulke> gecilenUlkeler;
-
 }
