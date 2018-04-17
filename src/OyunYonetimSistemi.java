@@ -10,12 +10,26 @@ public class OyunYonetimSistemi {
     Queue<Soru> sorular;
     Oyuncu oyuncu;
 
-    void girisYap(){
+    public boolean kayitOl (String kullaniciadi, String sifre) {
+        Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi,sifre);
 
+        return oyuncular.add(tmpOyuncu);
     }
 
-    void kayitOl(){
+    public Oyuncu girisYap(String kullaniciadi, String sifre){
+        Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi);
 
+        if ( oyuncular.contains (tmpOyuncu) ) {
+            if ( sifre.equals ((oyuncular.get (oyuncular.indexOf (tmpOyuncu))).getPassword ()) ){
+                return oyuncular.get (oyuncular.indexOf (tmpOyuncu));
+            } else {
+                //System.out.println ("Incorrect password, Please try again!");
+                return null;
+            }
+        } else {
+            //System.out.println ("Username is invalid, Please register this user!");
+            return null;
+        }
     }
 
     void soruPaketiOlustur(){
