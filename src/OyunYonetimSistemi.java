@@ -1,27 +1,33 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OyunYonetimSistemi {
     // TODO - ArrayList yerine ülkeler Map'de tutulacak.
-    ArrayList<Ulke> ulkeler; // Map kullanılabilir, Key ile ülke adları , Value ile soru listeleri tutulur
-    ArrayList<Oyuncu> oyuncular;
+    //ArrayList<Ulke> ulkeler; // Map kullanılabilir, Key ile ülke adları , Value ile soru listeleri tutulur
+    ArrayList<Oyuncu> oyuncuListesi;
     // TODO - ArrayList Soru Havuzu oluşturulacak
     // TODO - Queue<Soru> yerine PriorityQueue<Soru> kullanılacak
-    Queue<Soru> sorular;
-    Oyuncu oyuncu;
+    
+    Map<Ulke,List> ulkeler; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
+    Queue<Soru> sorular; // ülkeye denk gelen soru paketi
+    Oyuncu oyuncu; // hangi oyuncuda sıra olduğunu gösterir
 
     public boolean kayitOl (String kullaniciadi, String sifre) {
         Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi,sifre);
 
-        return oyuncular.add(tmpOyuncu);
+        return oyuncuListesi.add(tmpOyuncu);
     }
 
     public Oyuncu girisYap(String kullaniciadi, String sifre){
         Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi);
 
-        if ( oyuncular.contains (tmpOyuncu) ) {
-            if ( sifre.equals ((oyuncular.get (oyuncular.indexOf (tmpOyuncu))).getPassword ()) ){
-                return oyuncular.get (oyuncular.indexOf (tmpOyuncu));
+        if ( oyuncuListesi.contains (tmpOyuncu) ) {
+            if ( sifre.equals ((oyuncuListesi.get (oyuncuListesi.indexOf (tmpOyuncu))).getPassword ()) ){
+                return oyuncuListesi.get (oyuncuListesi.indexOf (tmpOyuncu));
             } else {
                 //System.out.println ("Incorrect password, Please try again!");
                 return null;
