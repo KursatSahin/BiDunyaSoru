@@ -10,6 +10,10 @@ public abstract class Soru implements PuanHesaplayıcı, Comparable <Soru>{
 
     int priority;
 
+    public Soru(){
+
+    }
+    
     public Soru(String soruMetni, String secenekA, String secenekB, String secenekC, String secenekD, int dogruCevap, int priority) {
         this.soruMetni = soruMetni;
         this.secenekA = secenekA;
@@ -20,6 +24,62 @@ public abstract class Soru implements PuanHesaplayıcı, Comparable <Soru>{
         this.priority = priority;
     }
 
+    public String getSoruMetni() {
+        return soruMetni;
+    }
+
+    public String getSecenekA() {
+        return secenekA;
+    }
+
+    public String getSecenekB() {
+        return secenekB;
+    }
+
+    public String getSecenekC() {
+        return secenekC;
+    }
+
+    public String getSecenekD() {
+        return secenekD;
+    }
+
+    public int getDogruCevap() {
+        return dogruCevap;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setSoruMetni(String soruMetni) {
+        this.soruMetni = soruMetni;
+    }
+
+    public void setSecenekA(String secenekA) {
+        this.secenekA = secenekA;
+    }
+
+    public void setSecenekB(String secenekB) {
+        this.secenekB = secenekB;
+    }
+
+    public void setSecenekC(String secenekC) {
+        this.secenekC = secenekC;
+    }
+
+    public void setSecenekD(String secenekD) {
+        this.secenekD = secenekD;
+    }
+
+    public void setDogruCevap(int dogruCevap) {
+        this.dogruCevap = dogruCevap;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+    
     @Override
     public int puanHesapla() {
         return 5 * priority;
