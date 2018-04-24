@@ -73,5 +73,74 @@ public class OyunYonetimSistemi {
     void oyunuYukle(){
 
     }
+    
+        void puanTablosunaPuanEkle(){
+        puanTablosu.add(oyuncu);
+    }
+
+    void ulkeOku() throws IOException {
+
+        String line=null;
+        String[] token=null;
+
+        try {
+
+            FileReader test = null;
+            test = new FileReader("ulkeler.csv");
+            BufferedReader countryReader = new BufferedReader(test);
+
+            while ((line = countryReader.readLine()) != null) {
+
+                token = line.split(";");
+
+                Ulke ulke = new Ulke();
+
+                ulke.setUlkeKodu(Integer.parseInt(token[0]));
+                ulke.setUlkeAdi(token[1]);
+                ulke.setBayrak(token[2]);
+
+                for (int j = 3; j < token.length; j++) {
+                    ulke.getKomsular().add(new Ulke(token[j]));
+                }
+
+                ulkeler.put(ulke.getUlkeAdi(), ulke);
+
+                FileReader test2 = null;
+                String path = new String(ulke.getUlkeAdi() + ".csv");
+                test2 = new FileReader(path);
+
+                BufferedReader qeustionReader = new BufferedReader(test2);
+
+                token = null;
+                line = null;
+
+                while ((line = qeustionReader.readLine()) != null) {
+
+                    Soru soru = new Soru();
+
+                    token = line.split(";");
+
+                    soru.setSoruMetni(token[0]);
+                    soru.setSecenekA(token[1]);
+                    soru.setSecenekB(token[2]);
+                    soru.setSecenekC(token[3]);
+                    soru.setSecenekD(token[4]);
+                    soru.setDogruCevap(Integer.parseInt(token[5]));
+                    soru.setPriority(Integer.parseInt(token[6]));
+
+                    ulkeler.get(ulke.getUlkeAdi()).getSoruHavuzu().add(soru);
+                    soru = null;
+                }
+
+                countryReader.close();
+                qeustionReader.close();
+            }
+
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException ex) {
+            System.out.println("IOException was detected!!");
+        }
+    }
 
 }
