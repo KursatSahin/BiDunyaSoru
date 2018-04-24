@@ -1,3 +1,5 @@
+import com.sun.source.tree.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -6,18 +8,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OyunYonetimSistemi {
-    // TODO - ArrayList yerine ülkeler Map'de tutulacak.
-    //ArrayList<Ulke> ulkeler; // Map kullanılabilir, Key ile ülke adları , Value ile soru listeleri tutulur
+
     ArrayList<Oyuncu> oyuncuListesi;
+
     // TODO - ArrayList Soru Havuzu oluşturulacak
-    // TODO - Queue<Soru> yerine PriorityQueue<Soru> kullanılacak
-    
-    Map<Ulke,List> ulkeler; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
-    Queue<Soru> sorular; // ülkeye denk gelen soru paketi
+    ArrayList<Soru> soruHavuzu;
+
+    BinarySearchTree puanTablosu; // birden fazla oyuncunun score larını saklamak için yazıldı
+
+    Map<String,Ulke> ulkeler; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
+    PriorityQueue<Soru> sorular; // ülkeye denk gelen soru paketi -> mevcut oyuncuya sorulacak sorular
     Oyuncu oyuncu; // hangi oyuncuda sıra olduğunu gösterir
 
     public boolean kayitOl (String kullaniciadi, String sifre) {
+
         Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi,sifre);
+
+        if (oyuncuListesi.contains(tmpOyuncu)) {
+            return false;
+        }
 
         return oyuncuListesi.add(tmpOyuncu);
     }
@@ -26,7 +35,7 @@ public class OyunYonetimSistemi {
         Oyuncu tmpOyuncu = new Oyuncu (kullaniciadi);
 
         if ( oyuncuListesi.contains (tmpOyuncu) ) {
-            if ( sifre.equals ((oyuncuListesi.get (oyuncuListesi.indexOf (tmpOyuncu))).getPassword ()) ){
+            if ( sifre.equals ((oyuncuListesi.get (oyuncuListesi.indexOf (tmpOyuncu))).getSifre()) ){
                 return oyuncuListesi.get (oyuncuListesi.indexOf (tmpOyuncu));
             } else {
                 //System.out.println ("Incorrect password, Please try again!");
@@ -51,8 +60,10 @@ public class OyunYonetimSistemi {
 
     }
 
-    void ulkeSec(){
-
+    void ulkeSec(int ulkeKodu){
+        if(ulkeler.containsKey(ulkeKodu)){
+            soruHavuzu = ulkeler.get(ulkeKodu).soruHavuzu;
+        }
     }
 
     void oyunuKaydet(){
