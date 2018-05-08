@@ -4,9 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import static grup2.Main.OYS;
 import static grup2.Main.yarismaEkraniPencere;
@@ -16,6 +19,7 @@ import static grup2.Main.yarismaEkraniPencere;
  */
 public class YarismaEkraniController implements Initializable {
     int soruSayaci = 1;
+    Soru simdikiSoru ;
 
     @FXML
     public Label LabelUlkeAdi;
@@ -56,12 +60,31 @@ public class YarismaEkraniController implements Initializable {
         System.out.println("ss");
         soruSayaci = 1;
         LabelUlkeAdi.setText(OYS.simdikiUlke.getUlkeAdi());
-        getNextSoru(OYS.sorular.poll());
+        simdikiSoru = getNextSoru();
+        sorularıGoster(simdikiSoru);
     }
 
-    public void getNextSoru(Soru s){
+
+    public boolean checkIfTrue(int prediction, int actual){
+        if (prediction == actual){
+            return true;
+        }
+        return false;
+    }
+
+    public Soru getNextSoru(){
+        return OYS.sorular.poll();
+    }
+
+    public void sorularıGoster(Soru s){
         LabelSoruSayisi.setText(soruSayaci + "/5");
         LabelSoru.setText(s.soruMetni);
+        if( LabelSoru.getText().length()>60){
+            LabelSoru.setFont(Font.font(18));
+        }else {
+            LabelSoru.setFont(Font.font(23));
+        }
+
         ButtonSecenekA.setText(s.secenekA);
         ButtonSecenekB.setText(s.secenekB);
         ButtonSecenekC.setText(s.secenekC);
@@ -71,7 +94,32 @@ public class YarismaEkraniController implements Initializable {
 
     public void buttonAction(ActionEvent event){
         if (!OYS.sorular.isEmpty()){
-            getNextSoru(OYS.sorular.poll());
+            int prediction = Integer.parseInt(((Button)event.getSource()).getId().replace("btn",""));
+
+            switch (prediction) {
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                case 4: break;
+            }
+
+            if(checkIfTrue(prediction,simdikiSoru.dogruCevap)){
+                ButtonSecenekA.setStyle("-fx-background-color: green");
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                ((Button)event.getSource()).setStyle("-fx-background-color: red");
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            simdikiSoru = getNextSoru();
+//            sorularıGoster(simdikiSoru);
         } else {
             OYS.writeUsersIntoJson();
             yarismaEkraniPencere.close();

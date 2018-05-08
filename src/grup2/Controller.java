@@ -3,6 +3,7 @@ package grup2;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.StageStyle;
 
 import static grup2.Main.OYS;
 import static grup2.Main.girisPencere;
@@ -21,6 +22,7 @@ public class Controller {
         try{
             Parent root = FXMLLoader.load(getClass().getResource("KullaniciKaydi.fxml"));
             kullaniciKaydiPencere.setScene(new Scene(root));
+            kullaniciKaydiPencere.setResizable(false);
             kullaniciKaydiPencere.show();
 
         }
@@ -33,6 +35,7 @@ public class Controller {
         try{
             Parent root = FXMLLoader.load(getClass().getResource("GirisEkrani.fxml"));
             girisPencere.setScene(new Scene(root));
+            girisPencere.setResizable(false);
             girisPencere.show();
 
 

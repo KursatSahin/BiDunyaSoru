@@ -40,6 +40,7 @@ public class GirisController {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("ulkeSecimi.fxml"));
                 ulkeSecimiPencere.setScene(new Scene(root));
+                ulkeSecimiPencere.setResizable(false);
                 ulkeSecimiPencere.show();
             }catch(Exception e){
                 System.out.println(e.toString());
