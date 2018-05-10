@@ -25,13 +25,13 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="598.0">
          <children>
-            <SplitPane dividerPositions="0.14795918367346939" layoutY="-9.0" orientation="VERTICAL" prefHeight="394.0" prefWidth="598.0">
+            <SplitPane fx:id="SplitPaneSoru" dividerPositions="0.14795918367346939" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" visible="false">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
                         <Label id="lblKullaniciAdi" layoutX="27.0" layoutY="19.0" text="GTU" />
-                        <Label id="lblSayac" layoutX="284.0" layoutY="19.0" text="00:12" />
-                        <Label id="lblSkor" layoutX="541.0" layoutY="19.0" text="120" />
+                        <Label id="lblSayac" fx:id="LabelZaman" layoutX="284.0" layoutY="19.0" text="00:12" />
+                        <Label id="lblSkor" fx:id="LabelPuan" layoutX="541.0" layoutY="19.0" text="120" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -61,6 +61,23 @@
                      </children>
                   </AnchorPane>
               </items>
+            </SplitPane>
+            <SplitPane fx:id="SplitPaneKullanici" dividerPositions="0.14795918367346939" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" visible="false">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Label id="lblKullaniciAdi" layoutX="27.0" layoutY="19.0" text="GTU" />
+                        <Label id="lblSayac" fx:id="LabelZaman1" layoutX="284.0" layoutY="19.0" text="00:12" />
+                        <Label id="lblSkor" fx:id="LabelPuan1" layoutX="541.0" layoutY="19.0" text="120" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="585.0" prefWidth="738.0">
+                     <children>
+                        <Label fx:id="LabelKullaniciAdi" layoutX="39.0" layoutY="93.0" text="LabelKullaniciAdi" />
+                        <Label fx:id="LabelKullaniciBakiyesi" layoutX="39.0" layoutY="151.0" text="LabelKullaniciBakiyesi" />
+                     </children>
+                  </AnchorPane>
+               </items>
             </SplitPane>
          </children></AnchorPane>
   </items>
