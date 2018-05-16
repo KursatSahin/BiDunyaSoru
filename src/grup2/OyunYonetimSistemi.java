@@ -18,7 +18,8 @@ public class OyunYonetimSistemi {
     ArrayList<Oyuncu> oyuncuListesi;
     ArrayList<Soru> soruHavuzu;
     BinarySearchTree puanTablosu; // birden fazla oyuncunun score larını saklamak için yazıldı
-    Map<String,Ulke> ulkeler; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
+    ArrayList<Ulke> ulkelerListesi; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
+    MatrixGraph ulkelerGrafı; // hangi ülkeye hangi soru paketi denk geliyorsa bunu saklıyoruz
     PriorityQueue<Soru> sorular; // ülkeye denk gelen soru paketi -> mevcut oyuncuya sorulacak sorular
     Oyuncu oyuncu; // hangi oyuncuda sıra olduğunu gösterir
     Ulke simdikiUlke;
@@ -27,7 +28,7 @@ public class OyunYonetimSistemi {
         this.oyuncuListesi = new ArrayList<>();
         this.soruHavuzu =  new ArrayList<>();
         this.puanTablosu = new BinarySearchTree();
-        this.ulkeler = new HashMap();
+        this.ulkelerListesi = new ArrayList<>();
         this.sorular = new PriorityQueue<>();
     }
 
@@ -126,9 +127,9 @@ public class OyunYonetimSistemi {
      */
     void ulkeSec(String ulkeadi){
 
-        if(ulkeler.containsKey(ulkeadi)){
-            simdikiUlke = ulkeler.get(ulkeadi);
-            soruHavuzu = ulkeler.get(ulkeadi).getSoruHavuzu();
+        if(ulkelerListesi.contains(new Ulke(ulkeadi))){
+            simdikiUlke = ulkelerListesi.get(ulkelerListesi.indexOf(new Ulke(ulkeadi)));
+            soruHavuzu = simdikiUlke.getSoruHavuzu();
         }
     }
 
@@ -144,12 +145,14 @@ public class OyunYonetimSistemi {
      */
     void oyunuYukle(){
         try {
-            ulkeOku();
+            ulkelerListesi = ulkeOku();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         setOyuncuListesi(readUsersFromJson());
+
+        //generateGraph();
     }
 
     // TODO - Guncellenecek..
@@ -274,8 +277,9 @@ public class OyunYonetimSistemi {
     }
 
     // TODO - Guncellenecek..
-    void ulkeOku() throws IOException {
+    public ArrayList<Ulke> ulkeOku() throws IOException {
 
+        ArrayList<Ulke> tmpUlkelerList = new ArrayList<>();
         // Buffer'dan okuma yapabilmek icin olusturulan gecici bir string
         String tmpLine;
 
@@ -351,7 +355,7 @@ public class OyunYonetimSistemi {
 
                 // Olusturulan gecici ulke nesnesi tum datafieldlari duzgunce doldurularak
                 // OYS'nin Map::ulkeler datafield'ina eklenir
-                ulkeler.put(ulke.getUlkeAdi(), ulke);
+                tmpUlkelerList.add(ulke);
             }
 
             // Ulke okumak icin olusturulan BufferedReader(buffer) kapatilir.
@@ -362,6 +366,59 @@ public class OyunYonetimSistemi {
         } catch(IOException ex) {
             System.out.println("IOException was detected!!");
         }
+
+        return tmpUlkelerList;
     }
 
+    public double calculateDistanceBetweenNeighbours(Ulke neighbour1, Ulke neighbour2){
+        double lat1 = neighbour1.getKordinatlar().getLatitude();
+        double lat2 = neighbour2.getKordinatlar().getLatitude();
+        double lon1 = neighbour1.getKordinatlar().getLongitude();
+        double lon2 = neighbour2.getKordinatlar().getLongitude();
+
+        final int R = 6371;
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        double distanceInMeters = R * c * 1000; // metre cinsinden mesafe
+        double distanceInKilometers = R * c; // kilometre cinsinden mesafe
+
+        return distanceInKilometers;
+    }
+
+    public Edge createEdge(int departure, int destination){
+
+        double distance = calculateDistanceBetweenNeighbours(ulkelerListesi.get(departure),ulkelerListesi.get(destination));
+
+        return  new Edge(departure,destination,(int)(distance));
+    }
+
+    public MatrixGraph generateGraph() {
+        MatrixGraph resultGraph = new MatrixGraph(ulkelerListesi.size(),false);
+
+        for (int i = 0; i < ulkelerListesi.size(); i++) {
+            Ulke tmpUlke = ulkelerListesi.get(i);
+            ArrayList<String> tmpKomsular = tmpUlke.getKomsular();
+
+            for (int j = 0; j < tmpKomsular.size(); j++) {
+                resultGraph.insert(createEdge(i,tmpKomsular.indexOf(new Ulke(tmpKomsular.get(j)))));
+            }
+        }
+        return resultGraph;
+    }
+
+    public ArrayList<String> getUlkelerListesiAsString() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (int i = 0; i < ulkelerListesi.size(); i++) {
+            arrayList.add(ulkelerListesi.get(i).getUlkeAdi());
+        }
+        return arrayList;
+    }
 }
