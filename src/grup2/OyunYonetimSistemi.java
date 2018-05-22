@@ -152,7 +152,7 @@ public class OyunYonetimSistemi {
 
         setOyuncuListesi(readUsersFromJson());
 
-        //generateGraph();
+        ulkelerGrafı = generateGraph();
     }
 
     // TODO - Guncellenecek..
@@ -393,6 +393,7 @@ public class OyunYonetimSistemi {
         return distanceInKilometers;
     }
 
+    // TODO - BURADA SIKINTI VAR DUZELTILMESI LAZIM
     public Edge createEdge(int departure, int destination){
 
         double distance = calculateDistanceBetweenNeighbours(ulkelerListesi.get(departure),ulkelerListesi.get(destination));
@@ -408,7 +409,7 @@ public class OyunYonetimSistemi {
             ArrayList<String> tmpKomsular = tmpUlke.getKomsular();
 
             for (int j = 0; j < tmpKomsular.size(); j++) {
-                resultGraph.insert(createEdge(i,tmpKomsular.indexOf(new Ulke(tmpKomsular.get(j)))));
+                resultGraph.insert(createEdge(i,ulkelerListesi.indexOf(new Ulke(tmpKomsular.get(j)))));
             }
         }
         return resultGraph;

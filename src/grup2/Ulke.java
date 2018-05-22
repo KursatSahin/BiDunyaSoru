@@ -63,6 +63,7 @@ public class Ulke implements Comparable {
         this.ulkeKodu = ulkeKodu;
         this.ulkeAdi = ulkeAdi;
         this.bayrak = bayrak;
+        this.kordinatlar = new Coordinate();
         this.soruHavuzu = new ArrayList<>();
         this.komsular= new ArrayList<>();
     }
@@ -122,6 +123,14 @@ public class Ulke implements Comparable {
 
     public void setKomsular(ArrayList<String> komsular) {
         this.komsular = komsular;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Ulke){
+            return this.ulkeAdi.equals(((Ulke) obj).ulkeAdi);
+        }
+        return super.equals(obj);
     }
 
     @Override

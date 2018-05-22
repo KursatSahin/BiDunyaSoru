@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import static grup2.Main.OYS;
@@ -85,6 +86,11 @@ public class YarismaEkraniController implements Initializable {
         simdikiSoru = getNextSoru();
         SplitPaneSoru.setVisible(true);
         SoruPaneliGuncelle();
+
+        Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
+        while (itr.hasNext()){
+            System.out.println(itr.next());
+        }
     }
 
 
