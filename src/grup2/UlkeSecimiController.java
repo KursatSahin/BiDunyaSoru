@@ -31,7 +31,7 @@ public class UlkeSecimiController implements Initializable{
     @FXML
     private ListView<String> ulkeListView;
 
-    ObservableList<String> list = FXCollections.observableArrayList(OYS.ulkeler.keySet());
+    ObservableList<String> list = FXCollections.observableArrayList(OYS.getUlkelerListesiAsString());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,8 +51,6 @@ public class UlkeSecimiController implements Initializable{
         try {
             Parent root = FXMLLoader.load(getClass().getResource("yarismaEkrani.fxml"));
             yarismaEkraniPencere.setScene(new Scene(root));
-            yarismaEkraniPencere.setResizable(false);
-
             yarismaEkraniPencere.show();
         }catch(Exception e){
             System.out.println(e.toString());

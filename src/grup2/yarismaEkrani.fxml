@@ -2,66 +2,145 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.19665271966527198" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="598.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
+   <children>
+    <AnchorPane prefHeight="100.0" prefWidth="480.0" style="-fx-background-color: #808080;" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label id="lblUlkeAdi" fx:id="LabelUlkeAdi" layoutX="253.0" layoutY="25.0" text="Türkiye">
+            <Label id="lblUlkeAdi" fx:id="LabelUlkeAdi" layoutX="269.0" layoutY="26.0" text="Türkiye" textFill="WHITE">
                <font>
-                  <Font size="29.0" />
+                  <Font name="System Bold" size="29.0" />
                </font>
             </Label>
-            <ImageView fitHeight="92.0" fitWidth="134.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="92.0" fitWidth="134.0" layoutX="12.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@turk_bayraginin_anlami_ve_tarihi.png" />
+                  <Image url="@../../images/png_flags/Turkey-Flag-256.png" />
                </image>
             </ImageView>
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="598.0">
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
-            <SplitPane dividerPositions="0.14795918367346939" layoutY="-9.0" orientation="VERTICAL" prefHeight="394.0" prefWidth="598.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane id="yarismaPaneli" fx:id="SplitPaneSoru" prefHeight="43.0" prefWidth="640.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane id="infoPanel" prefHeight="43.0" prefWidth="640.0" style="-fx-background-color: #d3d3d3;" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label id="lblKullaniciAdi" layoutX="27.0" layoutY="19.0" text="GTU" />
-                        <Label id="lblSayac" layoutX="284.0" layoutY="19.0" text="00:12" />
-                        <Label id="lblSkor" layoutX="541.0" layoutY="19.0" text="120" />
+                        <Label fx:id="LabelKullaniciAdi" layoutX="20.0" layoutY="8.0" text="GTU" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LabelZaman" layoutX="311.0" layoutY="8.0" text="15" textAlignment="CENTER" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LabelPuan" layoutX="589.0" layoutY="8.0" text="120" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <AnchorPane layoutY="40.0" prefHeight="128.0" prefWidth="640.0" style="-fx-background-color: #3b3b50;" AnchorPane.bottomAnchor="212.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <children>
-                        <SplitPane dividerPositions="0.3738601823708207" orientation="VERTICAL" prefHeight="331.0" prefWidth="598.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Label id="lblSoruNumarasi" fx:id="LabelSoruSayisi" layoutX="22.0" layoutY="14.0" text="1/10" />
-                                    <Label id="lblSoru" fx:id="LabelSoru" alignment="CENTER" layoutX="22.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="550.0" text="Türkiyenin başkenti hangisidir ?" textAlignment="CENTER" wrapText="true">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Button id="btn1" fx:id="ButtonSecenekA" layoutX="77.0" layoutY="18.0" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" text="İstanbul" />
-                                    <Button id="btn2" fx:id="ButtonSecenekB" layoutX="320.0" layoutY="18.0" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" text="Trabzon" />
-                                    <Button id="btn3" fx:id="ButtonSecenekC" layoutX="77.0" layoutY="116.0" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" text="Ankara" />
-                                    <Button id="btn4" fx:id="ButtonSecenekD" layoutX="320.0" layoutY="116.0" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" text="Bolu" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
+                        <Label fx:id="LabelSoruSayisi" layoutX="14.0" layoutY="14.0" text="1/10" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LabelSoru" alignment="CENTER" layoutY="31.0" prefHeight="78.0" prefWidth="640.0" text="Türkiyenin başkenti neresidir?" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="23.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
-              </items>
-            </SplitPane>
-         </children></AnchorPane>
-  </items>
-</SplitPane>
+                  <AnchorPane layoutY="166.0" prefHeight="214.0" prefWidth="640.0" style="-fx-background-color: #d3d3d3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="166.0">
+                     <children>
+                        <Button id="btn1" fx:id="ButtonSecenekA" layoutX="92.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="İstanbul" textFill="WHITE" AnchorPane.leftAnchor="90.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button id="btn3" fx:id="ButtonSecenekC" layoutX="92.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="İzmir" textFill="WHITE" AnchorPane.leftAnchor="90.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button id="btn4" fx:id="ButtonSecenekD" layoutX="353.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="Bursa" textFill="WHITE" AnchorPane.rightAnchor="90.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button id="btn2" fx:id="ButtonSecenekB" layoutX="353.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buttonAction" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="Ankara" textFill="WHITE" AnchorPane.rightAnchor="90.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="SplitPaneKullanici" prefHeight="380.0" prefWidth="640.0">
+               <children>
+                  <AnchorPane id="infoPanel" prefHeight="43.0" prefWidth="640.0" style="-fx-background-color: #d3d3d3;">
+                     <children>
+                        <Label fx:id="LabelKullaniciAdi1" layoutX="20.0" layoutY="8.0" text="GTU" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LabelKullaniciBakiyesi" layoutX="311.0" layoutY="8.0" text="15" textAlignment="CENTER" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelToplamPuan" layoutX="589.0" layoutY="8.0" text="120" textFill="#3b3b50">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane id="ulkeSecimiPaneli" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="317.0" prefWidth="320.0">
+                          <columns>
+                            <TableColumn prefWidth="158.0" text="C1" />
+                            <TableColumn prefWidth="161.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="426.0" layoutY="261.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Ülke Seç">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane id="oyunSonuPaneli" layoutY="42.0" prefHeight="203.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+                     <children>
+                        <Button layoutX="69.0" layoutY="69.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
