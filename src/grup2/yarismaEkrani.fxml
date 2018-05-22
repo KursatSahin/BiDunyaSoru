@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.19665271966527198" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="598.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
+   <children>
+    <AnchorPane prefHeight="100.0" prefWidth="480.0" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label id="lblUlkeAdi" fx:id="LabelUlkeAdi" layoutX="253.0" layoutY="25.0" text="Türkiye">
                <font>
@@ -22,12 +22,13 @@
                   <Image url="@turk_bayraginin_anlami_ve_tarihi.png" />
                </image>
             </ImageView>
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="598.0">
+         </children>
+      </AnchorPane>
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
-            <SplitPane fx:id="SplitPaneSoru" dividerPositions="0.14795918367346939" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" visible="false">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <SplitPane fx:id="SplitPaneSoru" dividerPositions="0.5" orientation="VERTICAL" prefHeight="338.0" prefWidth="642.0">
+               <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="640.0">
                      <children>
                         <Label id="lblKullaniciAdi" layoutX="27.0" layoutY="19.0" text="GTU" />
                         <Label id="lblSayac" fx:id="LabelZaman" layoutX="284.0" layoutY="19.0" text="00:12" />
@@ -60,9 +61,9 @@
                         </SplitPane>
                      </children>
                   </AnchorPane>
-              </items>
+               </items>
             </SplitPane>
-            <SplitPane fx:id="SplitPaneKullanici" dividerPositions="0.14795918367346939" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" visible="false">
+            <SplitPane fx:id="SplitPaneKullanici" dividerPositions="0.14795918367346939" orientation="VERTICAL" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
@@ -79,6 +80,7 @@
                   </AnchorPane>
                </items>
             </SplitPane>
-         </children></AnchorPane>
-  </items>
-</SplitPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
