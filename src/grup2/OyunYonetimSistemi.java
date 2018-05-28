@@ -393,6 +393,8 @@ public class OyunYonetimSistemi {
         double distanceInMeters = R * c * 1000; // metre cinsinden mesafe
         double distanceInKilometers = R * c; // kilometre cinsinden mesafe
 
+        distanceInKilometers = distanceInKilometers - distanceInKilometers%100;
+
         return distanceInKilometers;
     }
 

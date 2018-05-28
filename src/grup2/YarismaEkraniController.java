@@ -301,7 +301,8 @@ public class YarismaEkraniController implements Initializable {
         for (int i = 0; i < OYS.simdikiUlke.getKomsular().size(); i++) {
             edge = OYS.ulkelerGrafı.getEdge(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke),OYS.ulkelerListesi.indexOf(new Ulke(OYS.simdikiUlke.getKomsular().get(i))));
 
-            tempTable.add(OYS.simdikiUlke.getKomsular().get(i) + "\t" + edge.getWeight());
+            tempTable.add(String.format("%-20s\t%-10d",OYS.simdikiUlke.getKomsular().get(i),(int)edge.getWeight()));
+
         }
         return tempTable;
     }
@@ -318,24 +319,39 @@ public class YarismaEkraniController implements Initializable {
         String ulkeadi;
         ulkeadi = ulkeListView.getSelectionModel().getSelectedItem();
 
-        String ulkead[] = ulkeadi.split("\t");
+
+        String ulkead[] = ulkeadi.split(" \t");
 
 
-        OYS.ulkeSec(ulkead[0]);
-        ulkesecimiPanel.setVisible(false);
-        SplitPaneKullanici.setVisible(false);
-        SplitPaneSoru.setVisible(true);
-        oyunuBaslat();
+
+
+        if(OYS.oyuncu.getBakiye() > Integer.parseInt(ulkead[1].trim())){
+
+            OYS.ulkeSec(ulkead[0].trim());
+            ulkesecimiPanel.setVisible(false);
+            SplitPaneKullanici.setVisible(false);
+            SplitPaneSoru.setVisible(true);
+            oyunuBaslat();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Bakiyeniz yeterli değildir");
+            alert.setHeaderText("Uyarı");
+
+            alert.showAndWait();
+        }
+
+
 
     }
 
 
 
-
     public void btnYenidenOyna(){
+        oyunuBaslat();
+    }
 
-
-
+    public void btnGeri(){
+        ulkesecimiPanel.setVisible(false);
+        secimPanel.setVisible(true);
     }
 
 

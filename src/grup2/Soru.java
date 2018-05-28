@@ -89,7 +89,7 @@ public class Soru implements PuanHesaplayıcı, Comparable <Soru>{
     }
 
     public int puanHesapla() {
-        return 5 * priority;
+        return 100 * priority;
     }
 
     /**

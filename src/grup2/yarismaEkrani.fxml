@@ -111,7 +111,12 @@
                   <AnchorPane id="ulkeSecimiPaneli" fx:id="ulkesecimiPanel" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
                         <ListView fx:id="ulkeListView" layoutX="14.0" layoutY="14.0" prefHeight="310.0" prefWidth="320.0" />
-                        <Button layoutX="426.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#btnUlkeSecimiYap" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="ÜLKE SEÇ" textFill="WHITE">
+                        <Button layoutX="426.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#btnUlkeSecimiYap" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="ÜLKE SEÇ" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="426.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#btnGeri" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="GERİ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
