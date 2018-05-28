@@ -43,11 +43,23 @@ public class Oyuncu implements Comparable <Oyuncu>{
         this.sifre = sifre;
     }
 
+    public void bakiyeArttir(int bakiye) {
+        this.bakiye += bakiye;
+    }
+
+    public void bakiyeAzalt(int bakiye) {
+        this.bakiye -= bakiye;
+    }
+
     public void setBakiye(int bakiye) {
         this.bakiye = bakiye;
     }
 
     public void setToplamPuan(int toplamPuan) {
+        this.toplamPuan = toplamPuan;
+    }
+
+    public void toplamPuanArttir(int toplamPuan) {
         this.toplamPuan += toplamPuan;
     }
 

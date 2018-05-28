@@ -93,7 +93,7 @@ public class OyunYonetimSistemi {
 
 
         while(soru.size() < sorusayisi){
-            index = rand.nextInt(soruHavuzu.size()-1);
+            index = rand.nextInt(soruHavuzu.size());
 
             soru.add(soruHavuzu.get(index));
         }

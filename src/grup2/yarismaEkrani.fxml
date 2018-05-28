@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
    <children>
     <AnchorPane prefHeight="100.0" prefWidth="480.0" style="-fx-background-color: #808080;" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -111,12 +111,12 @@
                   <AnchorPane id="ulkeSecimiPaneli" fx:id="ulkesecimiPanel" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
                         <ListView fx:id="ulkeListView" layoutX="14.0" layoutY="14.0" prefHeight="310.0" prefWidth="320.0" />
-                        <Button layoutX="426.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#btnUlkeSecimiYap" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="ÜLKE SEÇ" textFill="WHITE">
+                        <Button layoutX="426.0" layoutY="254.0" mnemonicParsing="false" onMouseReleased="#btnUlkeSecimiYap" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="ÜLKE SEÇ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="426.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#btnGeri" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="GERİ" textFill="WHITE">
+                        <Button layoutX="426.0" layoutY="178.0" mnemonicParsing="false" onMouseReleased="#btnGeri" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="GERİ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -125,12 +125,12 @@
                   </AnchorPane>
                   <AnchorPane id="oyunSonuPaneli" fx:id="secimPanel" layoutY="42.0" prefHeight="203.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
-                        <Button layoutX="69.0" layoutY="69.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
+                        <Button layoutX="69.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnYenidenOyna" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#btnUlkeSec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" onMouseReleased="#btnUlkeSec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="25.0" />
                            </font>

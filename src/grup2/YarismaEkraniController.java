@@ -190,6 +190,7 @@ public class YarismaEkraniController implements Initializable {
         soruSayaci++;
     }
 
+    //public void buttonAction(ActionEvent actionEvent){
     public void buttonAction(ActionEvent actionEvent){
         //if (!OYS.sorular.isEmpty()){
         if (simdikiSoru != null){
@@ -227,8 +228,8 @@ public class YarismaEkraniController implements Initializable {
                                     simdikiSoru = getNextSoru();
                                     SoruPaneliGuncelle();
                                 } else {
-                                    OYS.oyuncu.setBakiye(anlikPuan);
-                                    OYS.oyuncu.setToplamPuan(anlikPuan);
+                                    OYS.oyuncu.bakiyeArttir(anlikPuan);
+                                    OYS.oyuncu.toplamPuanArttir(anlikPuan);
                                     OYS.writeUsersIntoJson();
                                     SplitPaneSoru.setVisible(false);
                                     SplitPaneKullanici.setVisible(true);
@@ -298,12 +299,21 @@ public class YarismaEkraniController implements Initializable {
         ArrayList<String> tempTable = new ArrayList<>();
         Edge edge;
 
+        Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
+
+        while (itr.hasNext()){
+            edge = (Edge)itr.next();
+            tempTable.add(String.format("%-20s\t%-10d",OYS.ulkelerListesi.get(edge.getDest()).getUlkeAdi(),(int)edge.getWeight()));
+        }
+
+        /*
         for (int i = 0; i < OYS.simdikiUlke.getKomsular().size(); i++) {
             edge = OYS.ulkelerGrafı.getEdge(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke),OYS.ulkelerListesi.indexOf(new Ulke(OYS.simdikiUlke.getKomsular().get(i))));
 
             tempTable.add(String.format("%-20s\t%-10d",OYS.simdikiUlke.getKomsular().get(i),(int)edge.getWeight()));
 
         }
+        */
         return tempTable;
     }
 
@@ -319,34 +329,29 @@ public class YarismaEkraniController implements Initializable {
         String ulkeadi;
         ulkeadi = ulkeListView.getSelectionModel().getSelectedItem();
 
-
         String ulkead[] = ulkeadi.split(" \t");
 
-
-
-
-        if(OYS.oyuncu.getBakiye() > Integer.parseInt(ulkead[1].trim())){
+        if(OYS.oyuncu.getBakiye() >= Integer.parseInt(ulkead[1].trim())){
 
             OYS.ulkeSec(ulkead[0].trim());
+            OYS.oyuncu.bakiyeAzalt(Integer.parseInt(ulkead[1].trim()));
             ulkesecimiPanel.setVisible(false);
             SplitPaneKullanici.setVisible(false);
-            SplitPaneSoru.setVisible(true);
+            //SplitPaneSoru.setVisible(true);
             oyunuBaslat();
         }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Bakiyeniz yeterli değildir");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Bakiyeniz yeterli değildir");
             alert.setHeaderText("Uyarı");
 
             alert.showAndWait();
         }
 
-
-
     }
-
-
 
     public void btnYenidenOyna(){
         oyunuBaslat();
+        secimPanel.setVisible(false);
+        SplitPaneKullanici.setVisible(false);
     }
 
     public void btnGeri(){
