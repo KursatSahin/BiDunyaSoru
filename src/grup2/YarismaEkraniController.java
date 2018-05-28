@@ -26,6 +26,15 @@ public class YarismaEkraniController implements Initializable {
     Integer anlikPuan = 0;
 
 
+    // Panels
+
+    @FXML
+    public AnchorPane ulkesecimiPanel;
+    @FXML
+    public AnchorPane secimPanel;
+
+
+
     // FXML Kullanici Paneli Objects
 
 
@@ -201,6 +210,7 @@ public class YarismaEkraniController implements Initializable {
                                     OYS.writeUsersIntoJson();
                                     SplitPaneSoru.setVisible(false);
                                     SplitPaneKullanici.setVisible(true);
+                                    secimPanel.setVisible(true);
                                     KullaniciPaneliGuncelle();
                                 }
 
@@ -253,6 +263,11 @@ public class YarismaEkraniController implements Initializable {
         ButtonSecenekC.setStyle("-fx-background-color:#3b3b50");
         ButtonSecenekD.setStyle("-fx-background-color:#3b3b50");
 
+    }
+
+    public void btnUlkeSec(){
+        secimPanel.setVisible(false);
+        ulkesecimiPanel.setVisible(true);
     }
 
 }

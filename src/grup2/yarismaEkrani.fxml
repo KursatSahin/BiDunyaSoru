@@ -88,7 +88,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="SplitPaneKullanici" prefHeight="380.0" prefWidth="640.0">
+            <AnchorPane fx:id="SplitPaneKullanici" prefHeight="380.0" prefWidth="640.0" visible="false">
                <children>
                   <AnchorPane id="infoPanel" prefHeight="43.0" prefWidth="640.0" style="-fx-background-color: #d3d3d3;">
                      <children>
@@ -109,29 +109,29 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane id="ulkeSecimiPaneli" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+                  <AnchorPane id="ulkeSecimiPaneli" fx:id="ulkesecimiPanel" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="317.0" prefWidth="320.0">
                           <columns>
                             <TableColumn prefWidth="158.0" text="C1" />
-                            <TableColumn prefWidth="161.0" text="C2" />
+                            <TableColumn editable="false" prefWidth="161.0" text="C2" />
                           </columns>
                         </TableView>
-                        <Button layoutX="426.0" layoutY="261.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Ülke Seç">
+                        <Button layoutX="426.0" layoutY="261.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #3b3b50;" text="ÜLKE SEÇ" textFill="WHITE">
                            <font>
-                              <Font size="25.0" />
+                              <Font name="System Bold" size="25.0" />
                            </font>
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane id="oyunSonuPaneli" layoutY="42.0" prefHeight="203.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+                  <AnchorPane id="oyunSonuPaneli" fx:id="secimPanel" layoutY="42.0" prefHeight="203.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
                         <Button layoutX="69.0" layoutY="69.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#btnUlkeSec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="25.0" />
                            </font>
