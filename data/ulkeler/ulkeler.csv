@@ -1,5 +1,11 @@
-1,turkiye,bayrak,rusya
-2,misir,bayrak,hindistan
-3,hindistan,bayrak,misir
-4,rusya,bayrak,turkiye
-5,fransa,bayrak,turkiye
+turkiye,bayrak,41.015137,28.979530,rusya,misir,italya
+misir,bayrak,30.045916,31.224291,turkiye
+hindistan,bayrak,28.644800,77.216721,japonya
+rusya,bayrak,55.751770,37.608868,turkiye,ingiltere
+fransa,bayrak,48.864716,2.349014,ingiltere,ispanya,italya
+ispanya,bayrak,40.416775,-3.703790,fransa,ingiltere,brezilya,italya
+japonya,bayrak,35.652832,139.839478,hindistan
+brezilya,bayrak,-15.790669,-47.892967,arjantin,ispanya
+arjantin,bayrak,-34.603722,-58.381592,brezilya
+ingiltere,bayrak,51.509865,0,fransa,ispanya,rusya
+italya,bayrak,41.906204,12.507516,fransa,ispanya,turkiye

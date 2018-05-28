@@ -1,18 +1,18 @@
 package grup2;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 import java.net.URL;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import static grup2.Main.OYS;
 import static java.lang.Thread.sleep;
@@ -21,10 +21,13 @@ import static java.lang.Thread.sleep;
  * Created by Yavuz on 26.04.2018.
  */
 public class YarismaEkraniController implements Initializable {
-    Integer soruSayaci = 1;
-    Soru simdikiSoru ;
-    Integer anlikPuan = 0;
+    // Global Constant Variables
+    final int SORU_SAYISI = 5;
 
+    // Data Fields for Yarisma Ekrani Controller
+    Integer soruSayaci;
+    Soru simdikiSoru;
+    Integer anlikPuan;
 
     // Panels
 
@@ -89,6 +92,14 @@ public class YarismaEkraniController implements Initializable {
 
     // End of FXML Soru Paneli Objects
 
+    // FXML Ulke Secimi Paneli Objects
+    @FXML
+    private ListView<String> ulkeListView;
+
+    //ObservableList<String> list = FXCollections.observableArrayList(OYS.getUlkelerListesiAsString());
+    public ObservableList<String> list;
+
+    // End of FXML Ulke Secimi Paneli Objects
 
 
     /**
@@ -101,9 +112,25 @@ public class YarismaEkraniController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        OYS.soruPaketiOlustur(5);
-        System.out.println("ss");
+        oyunuBaslat();
+
+        // TODO - alt taraftaki commetler taşınacak/silinecek
+//        Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
+//        while (itr.hasNext()){
+//            System.out.println(itr.next());
+//        }
+    }
+
+    /**
+     * Bu metod oyunu baslatir
+     * + Soru paketini hazırlar
+     * + Oyun ekranındaki soru indeksi kullanıcı puanı gibi değerleri ilk haline döndürür.
+     * + Ilk soruyu ekrana basar ve oyun baslatilir
+     */
+    public void oyunuBaslat(){
+        OYS.soruPaketiOlustur(SORU_SAYISI);
         soruSayaci = 1;
+        anlikPuan = 0;
         LabelUlkeAdi.setText(OYS.simdikiUlke.getUlkeAdi());
 
         simdikiSoru = getNextSoru();
@@ -111,11 +138,6 @@ public class YarismaEkraniController implements Initializable {
         LabelKullaniciAdi.setText(OYS.oyuncu.getKullaniciAdi());
 
         SoruPaneliGuncelle();
-
-        Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
-        while (itr.hasNext()){
-            System.out.println(itr.next());
-        }
     }
 
 
@@ -268,6 +290,55 @@ public class YarismaEkraniController implements Initializable {
     public void btnUlkeSec(){
         secimPanel.setVisible(false);
         ulkesecimiPanel.setVisible(true);
+        TabloyuDoldur();
     }
+
+
+    public ArrayList<String> generateKomsularTable(){
+        ArrayList<String> tempTable = new ArrayList<>();
+        Edge edge;
+
+        for (int i = 0; i < OYS.simdikiUlke.getKomsular().size(); i++) {
+            edge = OYS.ulkelerGrafı.getEdge(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke),OYS.ulkelerListesi.indexOf(new Ulke(OYS.simdikiUlke.getKomsular().get(i))));
+
+            tempTable.add(OYS.simdikiUlke.getKomsular().get(i) + "\t" + edge.getWeight());
+        }
+        return tempTable;
+    }
+
+    public void TabloyuDoldur(){
+        list = FXCollections.observableArrayList(generateKomsularTable());
+        ulkeListView.setItems(list);
+        ulkeListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+
+    public void btnUlkeSecimiYap(){
+
+        String ulkeadi;
+        ulkeadi = ulkeListView.getSelectionModel().getSelectedItem();
+
+        String ulkead[] = ulkeadi.split("\t");
+
+
+        OYS.ulkeSec(ulkead[0]);
+        ulkesecimiPanel.setVisible(false);
+        SplitPaneKullanici.setVisible(false);
+        SplitPaneSoru.setVisible(true);
+        oyunuBaslat();
+
+    }
+
+
+
+
+    public void btnYenidenOyna(){
+
+
+
+    }
+
+
+
 
 }

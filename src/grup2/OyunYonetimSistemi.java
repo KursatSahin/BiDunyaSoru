@@ -303,15 +303,17 @@ public class OyunYonetimSistemi {
 
                 // Okunan tokenlar ile gecici bir Ulke::ulke nesnesi olusturulur.
                 Ulke ulke = new Ulke(
-                        Integer.parseInt(countryDataFieldTokens[0]),
+                        countryDataFieldTokens[0],
                         countryDataFieldTokens[1],
-                        countryDataFieldTokens[2]);
+                        Float.parseFloat(countryDataFieldTokens[2]),Float.parseFloat(countryDataFieldTokens[3]));
 
                 // Olusturulan bu ulke nesnesinin dinamik boyutlu olan komsular listesi elde ettigimiz token arrayinin
                 // geriye kalan butun elemanlari oldugu icin dongu ile arrayin sonuna kadar olan kisim komsular listesine eklenir
-                for (int j = 3; j < countryDataFieldTokens.length; j++) {
+                for (int j = 4; j < countryDataFieldTokens.length; j++) {
                     ulke.getKomsular().add(countryDataFieldTokens[j]);
                 }
+
+
 
                 // Her bir ulkeye ait sorulari okuyabilmek icin <ulkeadi>.csv dosyalarina erismemiz gerekli.
                 // olusturulan gecici ulke nesnesi sorularini ekleyebilmek icin soru dosyasinin filepath'i olusturulur.
@@ -369,6 +371,7 @@ public class OyunYonetimSistemi {
 
         return tmpUlkelerList;
     }
+
 
     public double calculateDistanceBetweenNeighbours(Ulke neighbour1, Ulke neighbour2){
         double lat1 = neighbour1.getKordinatlar().getLatitude();

@@ -48,7 +48,7 @@ public class Oyuncu implements Comparable <Oyuncu>{
     }
 
     public void setToplamPuan(int toplamPuan) {
-        this.toplamPuan = toplamPuan;
+        this.toplamPuan += toplamPuan;
     }
 
     public String getKullaniciAdi() {
