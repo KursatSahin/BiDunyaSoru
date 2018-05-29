@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import static grup2.Main.OYS;
 import static grup2.Main.girisPencere;
 import static grup2.Main.kullaniciKaydiPencere;
+import static grup2.Main.puanTablosuPencere;
 
 public class Controller {
 
@@ -43,4 +44,20 @@ public class Controller {
 
     }
 
+    public void btnPuanTablosuOnClick(){
+
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("PuanTablosuEkrani.fxml"));
+            puanTablosuPencere.setScene(new Scene(root));
+            puanTablosuPencere.show();
+
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+
+    }
+
 }
+
+

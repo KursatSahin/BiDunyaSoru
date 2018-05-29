@@ -11,6 +11,7 @@ public class Oyuncu implements Comparable <Oyuncu>{
     private int toplamPuan;
     public ArrayList<String> gecilenUlkeler;
 
+
     public Oyuncu(String kullaniciAdi, String sifre, int bakiye, int toplamPuan, ArrayList<String> gecilenUlkeler) {
         this.kullaniciAdi = kullaniciAdi;
         this.sifre = sifre;

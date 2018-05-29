@@ -23,6 +23,7 @@ public class OyunYonetimSistemi {
     PriorityQueue<Soru> sorular; // ülkeye denk gelen soru paketi -> mevcut oyuncuya sorulacak sorular
     Oyuncu oyuncu; // hangi oyuncuda sıra olduğunu gösterir
     Ulke simdikiUlke;
+    ArrayList<Oyuncu> puanListesi;
 
     public OyunYonetimSistemi() {
         this.oyuncuListesi = new ArrayList<>();
@@ -426,5 +427,14 @@ public class OyunYonetimSistemi {
             arrayList.add(ulkelerListesi.get(i).getUlkeAdi());
         }
         return arrayList;
+    }
+
+    public ArrayList<Oyuncu> puanTablosuListesiAl(){
+
+        puanTablosu.root =  puanTablosu.buildTree(puanTablosu.root);    //agacı balance eder
+        puanTablosu.traverseInOrder( puanTablosu.root );    // kucukten buyuge sorted liste olusturulur
+        puanListesi = puanTablosu.buyuktenKucugePuanListesiAl(); //
+
+        return puanListesi;
     }
 }

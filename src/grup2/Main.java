@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     @Override
@@ -22,6 +24,7 @@ public class Main extends Application {
         kullaniciKaydiPencere = new Stage();
         ulkeSecimiPencere = new Stage();
         yarismaEkraniPencere = new Stage();
+        puanTablosuPencere = new Stage();
 
         OYS.oyunuYukle();
     }
@@ -32,6 +35,7 @@ public class Main extends Application {
     public static Stage kullaniciKaydiPencere;
     public static Stage ulkeSecimiPencere;
     public static Stage yarismaEkraniPencere;
+    public static Stage puanTablosuPencere;
 
     public static void main(String[] args) {
 

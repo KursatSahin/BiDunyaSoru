@@ -1,5 +1,8 @@
 package grup2;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 /** A class to represent a binary search tree.
  *  @author Koffman and Wolfgang
  */
@@ -15,6 +18,8 @@ public class BinarySearchTree < E
     /** Return value from the public delete method. */
     protected E deleteReturn;
 
+    public ArrayList<Oyuncu> buyuktenKucugeOyuncuPuanListesi = new ArrayList<Oyuncu>(); // büykten kucuge sıralı oyuncu listesi -Inorder travers
+    public ArrayList<E> kucuktenBuyugeOyuncuPuanListesi = new ArrayList<E>();  //kucukten buyuge sıralı oyuncu listesi
     //Methods
     /** Starter method find.
      pre: The target object must implement
@@ -197,4 +202,153 @@ public class BinarySearchTree < E
         }
     }
 
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                                      //
+    //     //Added new methods for leader Table List                                                        //
+    //                                                                                                      //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Balanced edilmiş treeyi kucuktenBuyugeOyuncuPuanListesine sort edilmiş şekilde doldurur.
+
+    public void traverseInOrder(Node<E> node)
+    {
+        if (node == null)
+            return ;
+
+        /* first recur on left child */
+        traverseInOrder(node.left);
+
+        /* then print the data of node */
+        kucuktenBuyugeOyuncuPuanListesi.add(node.data);
+
+        /* now recur on right child */
+        traverseInOrder(node.right);
+    }
+
+    //kucukten buyuge olan puan listesini buyuktenKucugeOyuncuPuanListesi ne doldurur
+    public ArrayList<Oyuncu> buyuktenKucugePuanListesiAl(){
+      //  Oyuncu[] sortedOyuncular = new Oyuncu[100];
+
+//        for (int i = kucuktenBuyugeOyuncuPuanListesi.size()-1; 0 <= i ; i--) {
+//            buyuktenKucugeOyuncuPuanListesi.add(kucuktenBuyugeOyuncuPuanListesi.get(i));
+//        }
+
+       // sortedOyuncular = kucuktenBuyugeOyuncuPuanListesi.toArray();
+        Oyuncu[] sortedOyuncular = new Oyuncu[kucuktenBuyugeOyuncuPuanListesi.size()];
+        sortedOyuncular = kucuktenBuyugeOyuncuPuanListesi.toArray(sortedOyuncular);
+        mergeSort(sortedOyuncular);
+
+        for ( int i=0 ; i< sortedOyuncular.length ; i++ ) {
+
+
+            buyuktenKucugeOyuncuPuanListesi.add(sortedOyuncular[i]);
+        }
+
+        return buyuktenKucugeOyuncuPuanListesi;
+    }
+
+
+    public static < E  extends Comparable < E >> void mergeSort(E[] table) {
+        // A table with one element is sorted already.
+        if (table.length > 1) {
+            // Split table into halves.
+            int halfSize = table.length / 2;
+            E[] leftTable = (E[])new Comparable[halfSize];
+            E[] rightTable =
+                    (E[])new Comparable[table.length - halfSize];
+            System.arraycopy(table, 0, leftTable, 0, halfSize);
+            System.arraycopy(table, halfSize, rightTable, 0,
+                    table.length - halfSize);
+
+            // Sort the halves.
+            mergeSort(leftTable);
+            mergeSort(rightTable);
+
+            // Merge the halves.
+            merge(table, leftTable, rightTable);
+        }
+    }
+
+    /** Merge two sequences.
+     pre: leftSequence and rightSequence are sorted.
+     post: outputSequence is the merged result and is sorted.
+     @param outputSequence The destination
+     @param leftSequence The left input
+     @param rightSequence The right input
+     */
+    private static < E extends Comparable < E >> void merge(E[] outputSequence,  E[] leftSequence,  E[] rightSequence) {
+        int i = 0; // Index into the left input sequence.
+        int j = 0; // Index into the right input sequence.
+        int k = 0; // Index into the output sequence.
+
+        // While there is data in both input sequences
+        while (i < leftSequence.length && j < rightSequence.length) {
+            // Find the smaller and
+            // insert it into the output sequence.
+            if (leftSequence[i].compareTo(rightSequence[j]) > 0) { // buyukten kucuge sıralı yaptık
+                outputSequence[k++] = leftSequence[i++];
+            }
+            else {
+                outputSequence[k++] = rightSequence[j++];
+            }
+        }
+        // assert: one of the sequences has more items to copy.
+        // Copy remaining input from left sequence into the output.
+        while (i < leftSequence.length) {
+            outputSequence[k++] = leftSequence[i++];
+        }
+        // Copy remaining input from right sequence into output.
+        while (j < rightSequence.length) {
+            outputSequence[k++] = rightSequence[j++];
+        }
+    }
+
+
+    //  added new methods for balanced tree
+
+    /* This function traverse the skewed binary tree and
+       stores its nodes pointers in vector nodes[] */
+    void storeBSTNodes(Node<E> root, Vector<Node<E>> nodes)
+    {
+        // Base case
+        if (root == null)
+            return;
+
+        // Store nodes in Inorder (which is sorted
+        // order for BST)
+        storeBSTNodes(root.left, nodes);
+        nodes.add(root);
+        storeBSTNodes(root.right, nodes);
+    }
+
+    /* Recursive function to construct binary tree */
+    Node buildTreeUtil(Vector<Node<E>> nodes, int start, int end) {
+        // base case
+        if (start > end)
+            return null;
+
+        /* Get the middle element and make it root */
+        int mid = (start + end) / 2;
+        Node node = nodes.get(mid);
+
+        /* Using index in Inorder traversal, construct
+           left and right subtress */
+        node.left = buildTreeUtil(nodes, start, mid - 1);
+        node.right = buildTreeUtil(nodes, mid + 1, end);
+
+        return node;
+    }
+
+    // This functions converts an unbalanced BST to
+    // a balanced BST
+    Node buildTree(Node<E> root)
+    {
+        // Store nodes of given BST in sorted order
+        Vector<Node<E>> nodes = new Vector<Node<E>>();
+        storeBSTNodes(root, nodes);
+
+        // Constucts BST from nodes[]
+        int n = nodes.size();
+        return buildTreeUtil(nodes, 0, n - 1);
+    }
 }
