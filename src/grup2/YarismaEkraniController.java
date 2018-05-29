@@ -1,15 +1,20 @@
 package grup2;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.*;
@@ -35,7 +40,6 @@ public class YarismaEkraniController implements Initializable {
     public AnchorPane ulkesecimiPanel;
     @FXML
     public AnchorPane secimPanel;
-
 
 
     // FXML Kullanici Paneli Objects
@@ -99,6 +103,11 @@ public class YarismaEkraniController implements Initializable {
     //ObservableList<String> list = FXCollections.observableArrayList(OYS.getUlkelerListesiAsString());
     public ObservableList<String> list;
 
+
+    private static final Integer STARTTIME = 15;
+    private Timeline timeline;
+    private Integer timeSeconds = STARTTIME;
+
     // End of FXML Ulke Secimi Paneli Objects
 
 
@@ -127,7 +136,8 @@ public class YarismaEkraniController implements Initializable {
      * + Oyun ekranındaki soru indeksi kullanıcı puanı gibi değerleri ilk haline döndürür.
      * + Ilk soruyu ekrana basar ve oyun baslatilir
      */
-    public void oyunuBaslat(){
+    public void oyunuBaslat() {
+
         OYS.soruPaketiOlustur(SORU_SAYISI);
         soruSayaci = 1;
         anlikPuan = 0;
@@ -141,45 +151,99 @@ public class YarismaEkraniController implements Initializable {
     }
 
 
-    public boolean checkIfTrue(int prediction, int actual){
-        if (prediction == actual){
+    public boolean checkIfTrue(int prediction, int actual) {
+        if (prediction == actual) {
             return true;
         }
         return false;
     }
 
-    public Soru getNextSoru(){
+    public Soru getNextSoru() {
         return OYS.sorular.peek();
     }
 
-    public void KullaniciPaneliGuncelle(){
+    public void KullaniciPaneliGuncelle() {
         LabelKullaniciAdi1.setText(OYS.oyuncu.getKullaniciAdi());
-        LabelKullaniciBakiyesi.setText(String.format("%d",OYS.oyuncu.getBakiye()));
-        labelToplamPuan.setText(String.format("%d",OYS.oyuncu.getToplamPuan()));
+        LabelKullaniciBakiyesi.setText(String.format("%d", OYS.oyuncu.getBakiye()));
+        labelToplamPuan.setText(String.format("%d", OYS.oyuncu.getToplamPuan()));
     }
 
-    public void SoruPaneliGuncelle(){
+    public void SoruPaneliGuncelle() {
         // TODO bekleme bitip panel güncellendikten sonra tuşların rengi ve aktiflik durumu düzeltilecek
         puanGuncelle();
-        zamanGuncelle();
+        zamanGuncelle(true);
         soruGuncelle(simdikiSoru);
     }
 
-    public void puanGuncelle(){
+    public void puanGuncelle() {
         LabelPuan.setText(anlikPuan.toString());
     }
 
-    public void zamanGuncelle(){
-        LabelZaman.setText(String.format("00:0%d",soruSayaci));
+    public void zamanGuncelle(boolean state) {
+//        LabelZaman.setText(String.format("00:0%d",soruSayaci));
+        if (state == true) {
+            if (timeline != null) {
+                timeline.stop();
+            }
+            timeSeconds = STARTTIME;
+
+            // update timerLabel
+            LabelZaman.setText(timeSeconds.toString());
+            timeline = new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.getKeyFrames().add(
+                    new KeyFrame(Duration.seconds(1),
+                            new EventHandler() {
+                                @Override
+                                public void handle(Event event) {
+                                    timeSeconds--;
+                                    // update timerLabel
+                                    LabelZaman.setText(timeSeconds.toString());
+                                    if (timeSeconds <= 0) {
+                                        timeline.stop();
+                                        lightUpRightAnswer();
+                                        disableButtons();
+                                        OYS.sorular.poll();
+                                        new Timer().schedule(
+                                                new TimerTask() {
+                                                    @Override
+                                                    public void run() {
+                                                        Platform.runLater(() -> {
+
+                                                            if (OYS.sorular.peek() != null) {
+                                                                simdikiSoru = getNextSoru();
+                                                                SoruPaneliGuncelle();
+                                                            } else {
+                                                                OYS.oyuncu.bakiyeArttir(anlikPuan);
+                                                                OYS.oyuncu.toplamPuanArttir(anlikPuan);
+                                                                OYS.writeUsersIntoJson();
+                                                                SplitPaneSoru.setVisible(false);
+                                                                SplitPaneKullanici.setVisible(true);
+                                                                secimPanel.setVisible(true);
+                                                                KullaniciPaneliGuncelle();
+                                                            }
+
+                                                        });
+                                                    }
+                                                }, 3000
+                                        );
+                                    }
+                                }
+                            }));
+            timeline.playFromStart();
+        } else {
+            timeline.stop();
+            LabelZaman.setText(timeSeconds.toString());
+        }
     }
 
-    public void soruGuncelle(Soru s){
+    public void soruGuncelle(Soru s) {
         buttonReset();
         LabelSoruSayisi.setText(soruSayaci + "/5");
         LabelSoru.setText(s.soruMetni);
-        if( LabelSoru.getText().length()>60){
+        if (LabelSoru.getText().length() > 60) {
             LabelSoru.setFont(Font.font(18));
-        }else {
+        } else {
             LabelSoru.setFont(Font.font(23));
         }
 
@@ -191,31 +255,32 @@ public class YarismaEkraniController implements Initializable {
     }
 
     //public void buttonAction(ActionEvent actionEvent){
-    public void buttonAction(ActionEvent actionEvent){
+    public void buttonAction(ActionEvent actionEvent) {
         //if (!OYS.sorular.isEmpty()){
-        if (simdikiSoru != null){
+        if (simdikiSoru != null) {
             OYS.sorular.poll();
-            int prediction = Integer.parseInt(((Button)actionEvent.getSource()).getId().replace("btn",""));
+            int prediction = Integer.parseInt(((Button) actionEvent.getSource()).getId().replace("btn", ""));
 
-            ((Button)actionEvent.getSource()).setStyle("-fx-background-color: orange");
-            disableOtherButtons(prediction);
+            ((Button) actionEvent.getSource()).setStyle("-fx-background-color: orange");
+            zamanGuncelle(false);
+            disableButtons();
             new Timer().schedule(
                     new TimerTask() {
                         @Override
                         public void run() {
                             Platform.runLater(() -> {
-                                if(checkIfTrue(prediction,simdikiSoru.dogruCevap)){
-                                    // TODO tuş renklendirme yapılıp 1-2 saniye beklenecek ve
-                                    // TODO bu bekleme sırasında tüm tuşlar disable edilecek
-                                    ((Button)actionEvent.getSource()).setStyle("-fx-background-color: green");
-                                    anlikPuan += simdikiSoru.puanHesapla();
-                                }else {
-                                    ((Button)actionEvent.getSource()).setStyle("-fx-background-color: red");
 
+                                if (checkIfTrue(prediction, simdikiSoru.dogruCevap)) {
+                                    ((Button) actionEvent.getSource()).setStyle("-fx-background-color: green");
+
+                                    anlikPuan += simdikiSoru.puanHesapla();
+                                } else {
+                                    ((Button) actionEvent.getSource()).setStyle("-fx-background-color: red");
+                                    lightUpRightAnswer();
                                 }
                             });
                         }
-                    },2000
+                    }, 2000
             );
 
             new Timer().schedule(
@@ -224,7 +289,7 @@ public class YarismaEkraniController implements Initializable {
                         public void run() {
                             Platform.runLater(() -> {
 
-                                if (OYS.sorular.peek() != null){
+                                if (OYS.sorular.peek() != null) {
                                     simdikiSoru = getNextSoru();
                                     SoruPaneliGuncelle();
                                 } else {
@@ -239,7 +304,7 @@ public class YarismaEkraniController implements Initializable {
 
                             });
                         }
-                    },4000
+                    }, 4000
             );
 
         } else {
@@ -248,34 +313,39 @@ public class YarismaEkraniController implements Initializable {
         }
     }
 
-    public void disableOtherButtons(int selection){
+    public void lightUpRightAnswer() {
 
-        switch (selection) {
 
+        switch (simdikiSoru.dogruCevap) {
             case 1:
-                ButtonSecenekB.setDisable(true);
-                ButtonSecenekC.setDisable(true);
-                ButtonSecenekD.setDisable(true);
+                ButtonSecenekA.setStyle("-fx-background-color: green");
                 break;
             case 2:
-                ButtonSecenekA.setDisable(true);
-                ButtonSecenekC.setDisable(true);
-                ButtonSecenekD.setDisable(true);
+                ButtonSecenekB.setStyle("-fx-background-color: green");
                 break;
             case 3:
-                ButtonSecenekA.setDisable(true);
-                ButtonSecenekB.setDisable(true);
-                ButtonSecenekD.setDisable(true);
+                ButtonSecenekC.setStyle("-fx-background-color: green");
                 break;
             case 4:
-                ButtonSecenekA.setDisable(true);
-                ButtonSecenekB.setDisable(true);
-                ButtonSecenekC.setDisable(true);
+                ButtonSecenekD.setStyle("-fx-background-color: green");
                 break;
+
         }
+
     }
 
-    public  void buttonReset(){
+    public void disableButtons() {
+
+        ButtonSecenekA.setDisable(true);
+
+        ButtonSecenekB.setDisable(true);
+//        ButtonSecenekB.setStyle("-fx-opacity: 0");
+        ButtonSecenekC.setDisable(true);
+
+        ButtonSecenekD.setDisable(true);
+    }
+
+    public void buttonReset() {
         ButtonSecenekA.setDisable(false);
         ButtonSecenekB.setDisable(false);
         ButtonSecenekC.setDisable(false);
@@ -288,22 +358,22 @@ public class YarismaEkraniController implements Initializable {
 
     }
 
-    public void btnUlkeSec(){
+    public void btnUlkeSec() {
         secimPanel.setVisible(false);
         ulkesecimiPanel.setVisible(true);
         TabloyuDoldur();
     }
 
 
-    public ArrayList<String> generateKomsularTable(){
+    public ArrayList<String> generateKomsularTable() {
         ArrayList<String> tempTable = new ArrayList<>();
         Edge edge;
 
         Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
 
-        while (itr.hasNext()){
-            edge = (Edge)itr.next();
-            tempTable.add(String.format("%-20s\t%-10d",OYS.ulkelerListesi.get(edge.getDest()).getUlkeAdi(),(int)edge.getWeight()));
+        while (itr.hasNext()) {
+            edge = (Edge) itr.next();
+            tempTable.add(String.format("%-20s\t%-10d", OYS.ulkelerListesi.get(edge.getDest()).getUlkeAdi(), (int) edge.getWeight()));
         }
 
         /*
@@ -317,14 +387,14 @@ public class YarismaEkraniController implements Initializable {
         return tempTable;
     }
 
-    public void TabloyuDoldur(){
+    public void TabloyuDoldur() {
         list = FXCollections.observableArrayList(generateKomsularTable());
         ulkeListView.setItems(list);
         ulkeListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
 
-    public void btnUlkeSecimiYap(){
+    public void btnUlkeSecimiYap() {
 
         String ulkeSecimiListViewRow;
         ulkeSecimiListViewRow = ulkeListView.getSelectionModel().getSelectedItem();
@@ -344,7 +414,7 @@ public class YarismaEkraniController implements Initializable {
             SplitPaneKullanici.setVisible(false);
             //SplitPaneSoru.setVisible(true);
             oyunuBaslat();
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Bakiyeniz yeterli değildir");
             alert.setHeaderText("Uyarı");
 
@@ -353,18 +423,16 @@ public class YarismaEkraniController implements Initializable {
 
     }
 
-    public void btnYenidenOyna(){
+    public void btnYenidenOyna() {
         oyunuBaslat();
         secimPanel.setVisible(false);
         SplitPaneKullanici.setVisible(false);
     }
 
-    public void btnGeri(){
+    public void btnGeri() {
         ulkesecimiPanel.setVisible(false);
         secimPanel.setVisible(true);
     }
-
-
 
 
 }
