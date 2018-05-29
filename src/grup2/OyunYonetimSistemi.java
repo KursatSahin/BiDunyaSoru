@@ -204,7 +204,9 @@ public class OyunYonetimSistemi {
                 token = line.split(",");
 
                 for (int j = 0; j < token.length; j++) {
-                    gecilenUlkeler.add(token[j]);
+                    if (!token[j].equals("")){
+                        gecilenUlkeler.add(token[j]);
+                    }
                 }
 
 

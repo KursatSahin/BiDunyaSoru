@@ -6,24 +6,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import static grup2.Main.OYS;
-import static grup2.Main.girisPencere;
-import static grup2.Main.ulkeSecimiPencere;
+import java.io.IOException;
+
+import static grup2.Main.*;
+import static grup2.Main.yarismaEkraniPencere;
 
 
 /**
  * Created by Yavuz on 24.04.2018.
  */
 public class GirisController {
-
-
     @FXML
     private TextField txtGirisKullaniciAdi;
     @FXML
     private TextField txtGirisSifre;
     @FXML
     private Label lblError;
-
 
     @FXML
     public void btnKullaniciGirisOnClick(){
@@ -37,13 +35,27 @@ public class GirisController {
         }else{
             OYS.oyuncu = OYS.girisYap(kAdi,kSifre);
             girisPencere.close();
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("ulkeSecimi.fxml"));
-                ulkeSecimiPencere.setScene(new Scene(root));
-                ulkeSecimiPencere.show();
-            }catch(Exception e){
-                System.out.println(e.toString());
+
+            if (OYS.oyuncu.getGecilenUlkeler().isEmpty()){
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("ulkeSecimi.fxml"));
+                    ulkeSecimiPencere.setScene(new Scene(root));
+                    ulkeSecimiPencere.show();
+                }catch(Exception e){
+                    System.out.println(e.toString());
+                }
+            } else {
+                try {
+                    OYS.ulkeSec(OYS.oyuncu.gecilenUlkeler.get(OYS.oyuncu.gecilenUlkeler.size()-1));
+                    Parent root = FXMLLoader.load(getClass().getResource("yarismaEkrani.fxml"));
+                    yarismaEkraniPencere.setScene(new Scene(root));
+                    yarismaEkraniPencere.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
         }
 
     }

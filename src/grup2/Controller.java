@@ -1,5 +1,6 @@
 package grup2;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,10 +12,9 @@ import static grup2.Main.puanTablosuPencere;
 
 public class Controller {
 
-
     public void btnCikisOnclick(){
         OYS.oyunuKaydet();
-        System.exit(0);
+        Platform.exit();
     }
 
     public void btnKayitOlOnclick(){

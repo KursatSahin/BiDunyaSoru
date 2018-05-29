@@ -10,6 +10,14 @@ import java.util.ArrayList;
 
 public class Main extends Application {
 
+    public static OyunYonetimSistemi OYS;
+    public static Stage girisPencere;
+    public static Stage anaPencere;
+    public static Stage kullaniciKaydiPencere;
+    public static Stage ulkeSecimiPencere;
+    public static Stage yarismaEkraniPencere;
+    public static Stage puanTablosuPencere;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -29,13 +37,12 @@ public class Main extends Application {
         OYS.oyunuYukle();
     }
 
-    public static OyunYonetimSistemi OYS;
-    public static Stage girisPencere;
-    public static Stage anaPencere;
-    public static Stage kullaniciKaydiPencere;
-    public static Stage ulkeSecimiPencere;
-    public static Stage yarismaEkraniPencere;
-    public static Stage puanTablosuPencere;
+    @Override
+    public void stop() throws Exception {
+        OYS.oyunuKaydet();
+
+        super.stop();
+    }
 
     public static void main(String[] args) {
 

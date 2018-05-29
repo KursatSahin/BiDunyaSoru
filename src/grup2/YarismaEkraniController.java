@@ -326,15 +326,20 @@ public class YarismaEkraniController implements Initializable {
 
     public void btnUlkeSecimiYap(){
 
-        String ulkeadi;
-        ulkeadi = ulkeListView.getSelectionModel().getSelectedItem();
+        String ulkeSecimiListViewRow;
+        ulkeSecimiListViewRow = ulkeListView.getSelectionModel().getSelectedItem();
 
-        String ulkead[] = ulkeadi.split(" \t");
+        // Tokenize ListView Row to ulkeadi and distance
+        String tokens[] = ulkeSecimiListViewRow.split(" \t");
 
-        if(OYS.oyuncu.getBakiye() >= Integer.parseInt(ulkead[1].trim())){
+        int distance = Integer.parseInt(tokens[1].trim());
+        String ulkeadi = tokens[0].trim();
 
-            OYS.ulkeSec(ulkead[0].trim());
-            OYS.oyuncu.bakiyeAzalt(Integer.parseInt(ulkead[1].trim()));
+        if(OYS.oyuncu.getBakiye() >= distance){
+
+            OYS.ulkeSec(ulkeadi);
+            OYS.oyuncu.gecilenUlkeEkle(ulkeadi);
+            OYS.oyuncu.bakiyeAzalt(distance);
             ulkesecimiPanel.setVisible(false);
             SplitPaneKullanici.setVisible(false);
             //SplitPaneSoru.setVisible(true);

@@ -90,6 +90,10 @@ public class Oyuncu implements Comparable <Oyuncu>{
         return gecilenUlkeler;
     }
 
+    public void gecilenUlkeEkle(String ulkeadi){
+        this.gecilenUlkeler.add(ulkeadi);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

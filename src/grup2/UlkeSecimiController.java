@@ -46,6 +46,8 @@ public class UlkeSecimiController implements Initializable{
 
         OYS.ulkeSec(ulkeadi);
 
+        OYS.oyuncu.gecilenUlkeEkle(ulkeadi);
+
         ulkeSecimiPencere.close();
 
         try {
