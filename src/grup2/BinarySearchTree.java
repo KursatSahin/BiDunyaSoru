@@ -81,12 +81,12 @@ public class BinarySearchTree < E
             addReturn = true;
             return new Node < E > (item);
         }
-        else if (item.compareTo(localRoot.data) == 0) {
+        /*else if (item.compareTo(localRoot.data) == 0) {
             // item is equal to localRoot.data
             addReturn = false;
             return localRoot;
-        }
-        else if (item.compareTo(localRoot.data) < 0) {
+        }*/
+        else if (item.compareTo(localRoot.data) <= 0) {
             // item is less than localRoot.data
             localRoot.left = add(localRoot.left, item);
             return localRoot;

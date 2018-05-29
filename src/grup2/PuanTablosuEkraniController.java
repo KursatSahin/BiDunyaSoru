@@ -42,6 +42,8 @@ public class PuanTablosuEkraniController implements Initializable {
 
         ArrayList<String> listPuan= new ArrayList<>();
 
+        OYS.puanTablosu = new BinarySearchTree();
+
         for (int i = 0; i < OYS.oyuncuListesi.size(); i++) {
 
             OYS.puanTablosu.add( OYS.oyuncuListesi.get(i));
