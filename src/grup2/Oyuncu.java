@@ -9,7 +9,9 @@ public class Oyuncu implements Comparable <Oyuncu>{
     private String sifre;
     private int bakiye;
     private int toplamPuan;
+    private boolean isFirstGame;
     public ArrayList<String> gecilenUlkeler;
+
 
 
     public Oyuncu(String kullaniciAdi, String sifre, int bakiye, int toplamPuan, ArrayList<String> gecilenUlkeler) {
