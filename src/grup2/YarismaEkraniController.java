@@ -11,7 +11,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -94,6 +95,9 @@ public class YarismaEkraniController implements Initializable {
     @FXML
     public Button ButtonSecenekD;
 
+    @FXML
+    public ImageView bayrakResim;
+
     // End of FXML Soru Paneli Objects
 
     // FXML Ulke Secimi Paneli Objects
@@ -142,6 +146,12 @@ public class YarismaEkraniController implements Initializable {
         soruSayaci = 1;
         anlikPuan = 0;
         LabelUlkeAdi.setText(OYS.simdikiUlke.getUlkeAdi());
+
+
+
+        Image bayrak = new Image(OYS.simdikiUlke.getBayrak());
+
+        bayrakResim.setImage(bayrak);
 
         simdikiSoru = getNextSoru();
         SplitPaneSoru.setVisible(true);

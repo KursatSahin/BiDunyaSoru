@@ -40,15 +40,18 @@ public class GirisController {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("ulkeSecimi.fxml"));
                     ulkeSecimiPencere.setScene(new Scene(root));
+                    ulkeSecimiPencere.setResizable(false);
                     ulkeSecimiPencere.show();
                 }catch(Exception e){
                     System.out.println(e.toString());
                 }
+
             } else {
                 try {
                     OYS.ulkeSec(OYS.oyuncu.gecilenUlkeler.get(OYS.oyuncu.gecilenUlkeler.size()-1));
                     Parent root = FXMLLoader.load(getClass().getResource("yarismaEkrani.fxml"));
                     yarismaEkraniPencere.setScene(new Scene(root));
+                    yarismaEkraniPencere.setResizable(false);
                     yarismaEkraniPencere.show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -57,6 +60,8 @@ public class GirisController {
 
 
         }
+
+
 
     }
 

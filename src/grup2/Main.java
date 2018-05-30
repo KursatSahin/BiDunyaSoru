@@ -24,7 +24,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("AnaMenu.fxml"));
         primaryStage.setTitle("Bi Dünya Soru");
         primaryStage.setScene(new Scene(root, 600, 480));
+        primaryStage.setResizable(false);
         primaryStage.show();
+
+
+
 
         OYS =  new OyunYonetimSistemi();
         girisPencere = new Stage();
@@ -40,7 +44,6 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         OYS.oyunuKaydet();
-
         super.stop();
     }
 
