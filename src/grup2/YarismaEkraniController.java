@@ -114,6 +114,12 @@ public class YarismaEkraniController implements Initializable {
 
     // End of FXML Ulke Secimi Paneli Objects
 
+    // FXML Secim Paneli Objects
+
+    ArrayList<Button> gecilenUlkeButonlari = new ArrayList<>();
+    ArrayList<ImageView> ulkeBayraklari = new ArrayList<>();
+
+    // End of FXML Secim Paneli Objects
 
     /**
      * Called to initialize a controller after its root element has been
@@ -126,7 +132,7 @@ public class YarismaEkraniController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         oyunuBaslat();
-
+        generateGecilenUlkelerButtons();
         // TODO - alt taraftaki commetler taşınacak/silinecek
 //        Iterator itr = OYS.ulkelerGrafı.edgeIterator(OYS.ulkelerListesi.indexOf(OYS.simdikiUlke));
 //        while (itr.hasNext()){
@@ -247,6 +253,14 @@ public class YarismaEkraniController implements Initializable {
         }
     }
 
+    public void buttonTextFitter(Button button){
+        if (button.getText().length()>20){
+            button.setFont(Font.font(13));
+        }else{
+            button.setFont(Font.font(18));
+        }
+    }
+
     public void soruGuncelle(Soru s) {
         buttonReset();
         LabelSoruSayisi.setText(soruSayaci + "/5");
@@ -258,9 +272,16 @@ public class YarismaEkraniController implements Initializable {
         }
 
         ButtonSecenekA.setText(s.secenekA);
+        buttonTextFitter(ButtonSecenekA);
+
         ButtonSecenekB.setText(s.secenekB);
+        buttonTextFitter(ButtonSecenekB);
+
         ButtonSecenekC.setText(s.secenekC);
+        buttonTextFitter(ButtonSecenekC);
+
         ButtonSecenekD.setText(s.secenekD);
+        buttonTextFitter(ButtonSecenekD);
         soruSayaci++;
     }
 
@@ -419,6 +440,7 @@ public class YarismaEkraniController implements Initializable {
 
             OYS.ulkeSec(ulkeadi);
             OYS.oyuncu.gecilenUlkeEkle(ulkeadi);
+            updateGecilenUlkelerButtons();
             OYS.oyuncu.bakiyeAzalt(distance);
             ulkesecimiPanel.setVisible(false);
             SplitPaneKullanici.setVisible(false);
@@ -444,5 +466,48 @@ public class YarismaEkraniController implements Initializable {
         secimPanel.setVisible(true);
     }
 
+    public void generateGecilenUlkelerButtons() {
+        //DEBUG
+        //SplitPaneSoru.setVisible(false);
+        //SplitPaneKullanici.setVisible(true);
+        //secimPanel.setVisible(true);
+        //DEBUG
+
+        for (int i = 0; i < OYS.ulkelerListesi.size(); i++) {
+            Image img = new Image(OYS.ulkelerListesi.get(i).getBayrak());
+            ulkeBayraklari.add (new ImageView(img));
+            ulkeBayraklari.get(i).setFitHeight(20);
+            ulkeBayraklari.get(i).setFitWidth(20);
+        }
+
+        for (int i = 0; i < OYS.ulkelerListesi.size(); i++) {
+            gecilenUlkeButonlari.add(new Button());
+            gecilenUlkeButonlari.get(i).setLayoutX((i*35)+(5*(i)));
+            gecilenUlkeButonlari.get(i).setLayoutY(5);
+            gecilenUlkeButonlari.get(i).setPrefSize(25,25);
+            gecilenUlkeButonlari.get(i).maxHeight(25);
+            gecilenUlkeButonlari.get(i).maxWidth(25);
+            gecilenUlkeButonlari.get(i).setStyle("-fx-focus-color: transparent;");
+            gecilenUlkeButonlari.get(i).setDisable(true);
+
+            secimPanel.getChildren().add(gecilenUlkeButonlari.get(i));
+
+            gecilenUlkeButonlari.get(i).setGraphic(ulkeBayraklari.get(i));
+
+        }
+
+        updateGecilenUlkelerButtons();
+
+    }
+
+    public void updateGecilenUlkelerButtons(){
+
+        ArrayList<String> gecilenUlkeler = OYS.oyuncu.getGecilenUlkeler();
+
+        for (int i = 0; i < gecilenUlkeler.size(); i++) {
+            int index = OYS.ulkelerListesi.indexOf(new Ulke(gecilenUlkeler.get(i)));
+            gecilenUlkeButonlari.get(index).setDisable(false);
+        }
+    }
 
 }

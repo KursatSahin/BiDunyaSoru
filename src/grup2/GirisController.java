@@ -31,7 +31,11 @@ public class GirisController {
 
 
         if(OYS.girisYap(kAdi,kSifre) == null){
-            lblError.setText("Kullanıcı adı veya parolanız hatalı");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Kullanıcı adı veya parolanız hatalı");
+            alert.setHeaderText("Uyarı");
+
+            alert.showAndWait();
+            //lblError.setText("Kullanıcı adı veya parolanız hatalı");
         }else{
             OYS.oyuncu = OYS.girisYap(kAdi,kSifre);
             girisPencere.close();

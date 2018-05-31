@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="txtError" fx:id="txtError" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.GirisController">
+<Pane id="txtError" fx:id="txtError" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.GirisController">
    <children>
       <Label layoutX="128.0" layoutY="144.0" text="Kullanıcı Adı" textFill="WHITE">
          <font>
@@ -26,7 +26,7 @@
             <Font name="System Bold" size="31.0" />
          </font>
       </Button>
-      <Label id="lblError" fx:id="lblError" layoutX="121.0" layoutY="328.0" textFill="RED">
+      <Label id="lblError" fx:id="lblError" layoutX="121.0" layoutY="370.0" textFill="RED">
          <font>
             <Font size="27.0" />
          </font>

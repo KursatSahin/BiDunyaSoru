@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup2.YarismaEkraniController">
    <children>
     <AnchorPane prefHeight="100.0" prefWidth="480.0" style="-fx-background-color: #808080;" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label id="lblUlkeAdi" fx:id="LabelUlkeAdi" layoutX="269.0" layoutY="26.0" text="Türkiye" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="29.0" />
+                  <Font name="Arial Black" size="29.0" />
                </font>
             </Label>
             <ImageView fx:id="bayrakResim" fitHeight="92.0" fitWidth="134.0" layoutX="12.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
@@ -155,12 +155,12 @@
                   </AnchorPane>
                   <AnchorPane id="oyunSonuPaneli" fx:id="secimPanel" layoutY="42.0" prefHeight="203.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <children>
-                        <Button layoutX="69.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnYenidenOyna" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
+                        <Button layoutX="69.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnYenidenOyna" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffc107;" text="YENİDEN OYNA" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="69.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="345.0" layoutY="69.0" mnemonicParsing="false" onMouseReleased="#btnUlkeSec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button layoutX="345.0" layoutY="90.0" mnemonicParsing="false" onMouseReleased="#btnUlkeSec" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #009688;" text="ÜLKE SEÇ" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="25.0" />
                            </font>

@@ -8,10 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import static grup2.Main.OYS;
-import static grup2.Main.girisPencere;
-import static grup2.Main.kullaniciKaydiPencere;
-import static grup2.Main.puanTablosuPencere;
+import static grup2.Main.*;
 
 public class Controller {
 
@@ -19,11 +16,18 @@ public class Controller {
     public Button btnGiris;
 
     public void btnCikisOnclick(){
+        if (isAnyStageShowing()) {
+            return;
+        }
+
         OYS.oyunuKaydet();
         Platform.exit();
     }
 
     public void btnKayitOlOnclick(){
+        if (isAnyStageShowing()) {
+            return;
+        }
 
         try{
             Parent root = FXMLLoader.load(getClass().getResource("KullaniciKaydi.fxml"));
@@ -38,13 +42,15 @@ public class Controller {
     }
 
     public void btnGirisOnclick(){
+        if (isAnyStageShowing()) {
+            return;
+        }
+
         try{
             Parent root = FXMLLoader.load(getClass().getResource("GirisEkrani.fxml"));
             girisPencere.setScene(new Scene(root));
             girisPencere.setResizable(false);
             girisPencere.show();
-
-
 
         }
         catch(Exception e){
@@ -54,6 +60,9 @@ public class Controller {
     }
 
     public void btnPuanTablosuOnClick(){
+        if (isAnyStageShowing()) {
+            return;
+        }
 
         try{
             Parent root = FXMLLoader.load(getClass().getResource("PuanTablosuEkrani.fxml"));
@@ -66,6 +75,14 @@ public class Controller {
             System.out.println(e.toString());
         }
 
+    }
+
+    public boolean isAnyStageShowing(){
+        if (girisPencere.isShowing() || kullaniciKaydiPencere.isShowing() || ulkeSecimiPencere.isShowing() ||
+                yarismaEkraniPencere.isShowing() || puanTablosuPencere.isShowing()){
+            return true;
+        }
+        return false;
     }
 
 }

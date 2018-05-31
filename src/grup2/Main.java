@@ -48,8 +48,33 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
         launch(args);
+    }
+
+    public void closeRequestHandler(){
+        girisPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
+
+        anaPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
+
+        kullaniciKaydiPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
+
+        ulkeSecimiPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
+
+        yarismaEkraniPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
+
+        puanTablosuPencere.setOnCloseRequest(event -> {
+            System.out.println("close");
+        });
 
     }
 
